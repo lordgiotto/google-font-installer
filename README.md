@@ -93,7 +93,7 @@ $ npm install google-font-installer --save
 ```
 And then you can require it in your code:
 ```js
-var GooglFontList = require('google-font-installer');
+var GoogleFontList = require('google-font-installer');
 ```
 
 To use this API is necessary to obtain a Browser Key enabled to Google Font API from the [Google Developer Dashboard](https://console.developers.google.com/).
@@ -240,9 +240,9 @@ Download specified variants of the font in the current directory (where the scri
 - variants [String|Array] A string of the variant or an array with multiple variants.
 - callback(err, result) [Function] Optional callback with eventually an error obj and and the result Array of Objects.
     - result [Array] An Array containing one object for each installed file, with the following properties:
-        - _family_: the downloaded font family
-        - _variant_: the downloaded variant
-        - _path_: the path of the downloaded file
+        - _family_: the installed font family
+        - _variant_: the installed variant
+        - _path_: the path of the installed file
 
 Install specified variants of the font. The destination folder depends on the platform used:
 - Linux: _~/.fonts/_
