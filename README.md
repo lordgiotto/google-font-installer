@@ -1,17 +1,18 @@
 Google Font Installer
 =============
 
-![how gfi works](https://dl.dropboxusercontent.com/u/821181/gfi.gif)
 
 Google Font Installer is a NodeJS module/CLI that lets you Search, Download and Install fonts offered by Google Web Fonts.
 
 You can use it in two ways:
-- installing the module system wide and using the Command Line Interface (CLI)
-- requiring the module in your project and use the APIs
+- install the module system wide and use the Command Line Interface (CLI)
+- require the module in your project and use the APIs
 
-###### Font installation footnote
-In Linux and OSX, the font will be installed in the user's font directory (~/.fonts for Linux, ~/Library/Fonts for OSX).
-In Windows, due to the fact that font installation require some register modifications, I prefered to create a little WScript (a windows script that use ActiveX windows interface) and spawn a `cscript` process to install the font in a _'windows native way'_.
+<br>
+![how gfi works](https://dl.dropboxusercontent.com/u/821181/gfi.gif)
+
+<br>
+### Table of content
 
 - [CLI](#cli)
 	- [Search a font](#search-a-font)
@@ -27,6 +28,12 @@ In Windows, due to the fact that font installation require some register modific
 		- [Public Properties](#google-font-properties)
 		- [Public Methods](#google-font-methods)
 	- [Exemples](#api-exemples)
+
+
+<br>
+###### Font installation footnote
+In Linux and OSX, the font will be installed in the user's font directory (~/.fonts for Linux, ~/Library/Fonts for OSX).
+In Windows, due to the fact that font installation require some register modifications, I prefered to create a little WScript (a windows script that use ActiveX windows interface) and spawn a `cscript` process to install the font in a _'windows native way'_.
 
 # CLI
 
