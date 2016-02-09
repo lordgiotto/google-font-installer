@@ -5,8 +5,8 @@
 var program = require('commander');
 var colors = require('colors');
 var GoogleFontList = require('./lib/google-font-list');
-
 var fontList = new GoogleFontList('AIzaSyB1I5eF2kRqqs50DS8qBJtFkCTMMoQLusg');
+var pjson = require('./package.json');
 
 program
 	.command('search [family...]')
@@ -46,7 +46,7 @@ program
 	});
 
 program
-	.version('1.0.0');
+	.version(pjson.version);
 
 program.parse(process.argv);
 
