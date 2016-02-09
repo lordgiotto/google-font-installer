@@ -14,8 +14,9 @@ program
 	.action(function(family){
 		var searchedTerm = family ? family.join(" ") : '';
 		fontList.on('success', function(){
-			this.searchFontByName(searchedTerm, printFontList)
+			searchFont(searchedTerm);
 		})
+
 	})
 
 program
@@ -28,13 +29,7 @@ program
 		var variants = options.variants ? options.variants.split(',') : false;
 		var path = options.dest || false;
 		fontList.on('success', function(){
-			this.searchFontByName(searchedTerm, function(err, filteredList){
-				if (filteredList && filteredList.data.length === 1) {
-					filteredList.getFirst().saveAt(variants, path, printResult);
-				} else {
-					printFontList(err, filteredList, 'More fonts mathces the request:');
-				}
-			})
+			downloadFont(searchedTerm, variants, path);
 		})
 	});
 
@@ -46,13 +41,7 @@ program
 		var searchedTerm = family.join(" ");
 		var variants = options.variants ? options.variants.split(',') : false;
 		fontList.on('success', function(){
-			this.searchFontByName(searchedTerm, function(err, filteredList){
-				if (filteredList && filteredList.data.length === 1) {
-					filteredList.getFirst().install(variants, printResult);
-				} else {
-					printFontList(err, filteredList, 'More fonts mathces the request:');
-				}
-			})
+			installFont(searchedTerm, variants);
 		})
 	});
 
@@ -69,22 +58,56 @@ program.args.forEach(function(arg){
 		found = true;
 })
 if (!found)
-program.help();
+	program.help();
 
 // HELPERS FUNCTIONS
+
+console.log('\nDonwloading Google Font List....\n'.blue.bold);
+
+fontList.on('error', function(err){
+	printError(err);
+})
+
+function searchFont(searchedTerm) {
+	fontList.searchFontByName(searchedTerm, printFontList)
+}
+
+
+function downloadFont(searchedTerm, variants, path) {
+	fontList.getFontByName(searchedTerm, function(err, filteredList){
+		if (filteredList.data.length === 1) {
+			filteredList.getFirst().saveAt(variants, path, printResult);
+		} else {
+			console.log('Impossible to download the font: no matches for "%s". \n'.bold.red, searchedTerm);
+			searchFont(searchedTerm);
+		}
+	})
+}
+
+function installFont(searchedTerm, variants) {
+	fontList.getFontByName(searchedTerm, function(err, filteredList){
+		if (filteredList.data.length === 1) {
+			filteredList.getFirst().install(variants, printResult);
+		} else {
+			console.log('Impossible to install the font: no matches for "%s". \n'.bold.red, searchedTerm);
+			searchFont(searchedTerm);
+		}
+	})
+}
+
 function printFontList(err, list, message){
 	if (err) {
 		printError(err)
 		return;
 	} else if (list.data.length === 0) {
-		console.log('\nNo results found for: %s\n'.red, list._filterTerm);
+		console.log('No results found for: %s\n'.red, list._filterTerm);
 	} else {
 		message = message || 'Search reuslts for:'
 		if (list._filterTerm)
-			console.log('\n%s "%s"\n'.green, message, list._filterTerm.bold.blue);
+			console.log('%s "%s"\n'.green, message, list._filterTerm.bold.blue);
 		list.data.forEach(function(el){
 			console.log(" * %s".bold.blue,  el.family);
-			console.log("    Category: %s\n    Variants: %s\n    CSS Url: %s", el.getCategory(), el.getVariants().join(", "), el.getCssUrl());
+			console.log("    Category: %s\n    Variants: %s\n    CSS Url: %s\n", el.getCategory(), el.getVariants().join(", "), el.getCssUrl());
 		})
 	}
 }
