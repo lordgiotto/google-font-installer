@@ -1,6 +1,8 @@
 Google Font Installer
 =============
 
+![how gfi works](https://dl.dropboxusercontent.com/u/821181/gfi.gif)
+
 Google Font Installer is a NodeJS module/CLI that lets you Search, Download and Install fonts offered by Google Web Fonts.
 
 You can use it in two ways:
