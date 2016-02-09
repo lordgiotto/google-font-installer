@@ -1,7 +1,7 @@
 Google Font Installer
 =============
 
-Google Font Installer is written in NodeJS and let you Search, Donwload and Install any font offered by Google Web Fonts.
+Google Font Installer is a NodeJS module/CLI that lets you Search, Download and Install fonts offered by Google Web Fonts.
 
 You can use it in two ways:
 - installing the module system wide and using the Command Line Interface (CLI)
@@ -9,7 +9,22 @@ You can use it in two ways:
 
 ###### Font installation footnote
 In Linux and OSX, the font will be installed in the user's font directory (~/.fonts for Linux, ~/Library/Fonts for OSX).
-In Windows, due to the fact that font installation require some register modifications, I prefered to create a little WScript (a windows script that use ActiveX windows interface) and spawn a `cscript` process to install the font in _'windows native way'_.
+In Windows, due to the fact that font installation require some register modifications, I prefered to create a little WScript (a windows script that use ActiveX windows interface) and spawn a `cscript` process to install the font in a _'windows native way'_.
+
+- [CLI](#cli)
+	- [Search a font](#search-a-font)
+	- [Download a font](#download-a-font)
+	- [Install a font](#install-a-font)
+	- [Exemples](#cli-exemples)
+- [APIs](#apis)
+	- [GoogleFontList](#googlefontlist)
+		- [Events](#google-font-list-events)
+		- [Public Properties](#google-font-list-properties)
+		- [Public Methods](#google-font-list-methods)
+	- [GoogleFont](#googlefont)
+		- [Public Properties](#google-font-properties)
+		- [Public Methods](#google-font-methods)
+	- [Exemples](#api-exemples)
 
 # CLI
 
@@ -52,6 +67,7 @@ If **family_name** will match more than one family, nothing will be installed: a
 Install command accepts only one option:
 - `-v` or `--variants` let you specify which variants of the font will be installed. You have to write each variant separated by the other with a comma. For exemple `$ gfi install Source Sans Pro -v 300,400`. If omitted, all variants will be downloaded.
 
+<a id="cli-exemples"></a>
 ### Exemples
 Search the _source_ keyword:
 ```
@@ -74,7 +90,7 @@ Search reuslts for: "source"
 ```
 Download Source Sans Pro 600 and 700italic:
 ```
-$ gfi download source sans -v 600,700italic
+$ gfi download source sans pro -v 600,700italic
 
 Source Sans Pro variant 600 downloaded in /home/user/someFolder/SourceSansPro-600.ttf
 Source Sans Pro variant 700italic downloaded in /home/user/someFolder/SourceSansPro-700italic.ttf
@@ -87,6 +103,7 @@ Lato variant 100 downloaded in /home/user/.fonts/Lato-100.ttf
 
 ```
 # APIs
+
 First of all you have to install the module in you NodeJS project:
 ```
 $ npm install google-font-installer --save
@@ -110,6 +127,7 @@ var fontList = new GoogleFontList();
 fontList.setApiKey('API_KEY');
 fontList.downloadList();
 ```
+<a id="google-font-list-events"></a>
 
 #### Events
 ###### `'success'`
@@ -117,12 +135,14 @@ Emitted when the Font List is downloaded from Google and the data are converted,
 ###### `'error'`
 Emitter if something go wrong in downloading, coverting or processing data. The Callback argument is the error object.
 
+<a id="google-font-list-properties"></a>
 #### Public properties
 ###### `data` [Array]
 Array of GoogleFont instances, a class that extends the data provided by the Google APIs. Empty until 'success' event.
 ###### `apiKey` [String]
 The Google APIs Key setted with the constructor or with setApiKey().
 
+<a id="google-font-list-methods"></a>
 #### Public methods
 
 ###### `setApiKey('API_KEY')`
@@ -154,7 +174,7 @@ Return a new instance of the object, with the same `data` and `apiKey` propertie
 - field [String] The property of the GoogleFont instance to test.
 - callback(err, fontList) [Function] Mandatory callback with optional error obj and a new instance of GoogleFontList with the searched subset of Fonts
 
-Function with callback used to search a specific string inside a specific property of googleFont object.
+Function with callback used to search a font inside the object `data` property: it's case insensitive, words order insensitive and test if the field CONTAIN that words (ex. `source sans`, `source Sans` and `sans source` will produce the same result).
 
 ###### `searchFontByName(term, callback)`
 - term [String] The string to search for.
@@ -168,6 +188,25 @@ Same as searchFont, but specific for the Family property. (the font name)
 
 Same as searchFont, but specific for the Category property. (for instance serif, sans-serif, display, etc)
 
+###### `getFont(term, field, callback)`
+- term [String] The string to search for.
+- field [String] The property of the GoogleFont instance to test.
+- callback(err, fontList) [Function] Mandatory callback with optional error obj and a new instance of GoogleFontList with the searched subset of Fonts
+
+Function with callback used to get a specific font where a field and the term exactly match (case insensitive)
+
+###### `getFontByName(term, callback)`
+- term [String] The string to search for.
+- callback(err, fontList) [Function] Mandatory callback with optional error obj and a new instance of GoogleFontList with the searched subset of Fonts
+
+Same as getFont, but specific for the Family property. (the font name)
+
+###### `getFontByType(term, callback)`
+- term [String] The string to search for.
+- callback(err, fontList) [Function] Mandatory callback with optional error obj and a new instance of GoogleFontList with the searched subset of Fonts
+
+Same as getFont, but specific for the Category property. (for instance serif, sans-serif, display, etc)
+
 ###### `getFirst()`
 - Returns [GoogleFont|Boolean] If not empty, return the first GoogleFont instance inside
 GoogleFontList `data` property, else return false.
@@ -175,8 +214,9 @@ GoogleFontList `data` property, else return false.
 ###### `isSingle()`
 - Returns [Boolean] Returns true if the is only one GoogleFont in GoogleFontList `data` property, else return false.
 
-###### `forEachFont(fn)`
-- fn [Function] The function to execute.
+###### `forEachFont(fn, callback)`
+- fn(el, index) [Function] The function to execute for each element of the list, with element and index as parameters.
+- callback(err) [Function] Optional callback that will be executed after the end of the loop
 
 Execture fn foreach GoogleFOnt in GoogleFontList `data` property. It's async.
 
@@ -186,8 +226,9 @@ Class that extends data structure provided by Google APIs.
 
 It's instanced by the populate method of GoogleFontList, called internally by the constructor or by parseRawData method.
 
-**Every object inside the `data` property of GoogleFontList is an instance of this class.**
+**Every object inside the `data` property of [GoogleFontList](#googlefontlist) is an instance of this class.**
 
+<a id="google-font-properties"></a>
 #### Public properties
 
 ###### `family` `category` `version` `lastModified` [String]
@@ -201,6 +242,7 @@ Inherits by Google Font API structure, an object with key-value of variant and t
 ###### `cssUrl` [String]
 Url of the css file containing the ready-to-use imports for the web about that specific font.
 
+<a id="google-font-methods"></a>
 #### Public methods
 
 ###### `getFamily()` `getCategory()` `getVariants()` `getSubsets()` `getVersion()` `getLastMod()` `getFileList()` `getCssUrl()`
@@ -249,6 +291,7 @@ Install specified variants of the font. The destination folder depends on the pl
 - OSX: _~/Library/Fonts/_
 - Windows: The file is not copied into c:\Windows\Fonts, but is used a WScript that install the font invoking the font install windows function.
 
+<a id="api-exemples"></a>
 ### Exemples
 ```js
 var GoogleFontlist = require('google-font-installer');
@@ -262,7 +305,7 @@ fontList.on('success', function(){
 		filteredList.getFirst().download(['300', '400'], function(err, result){
 			if (err)
 				throw err;
-			result.forEach(function(el){
+			result.forEach(function(el, index){
 				console.log('Variant %s of %s downloaded in %s', el.variant, el.family, el.path);
 			})
 		});
