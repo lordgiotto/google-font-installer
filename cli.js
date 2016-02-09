@@ -134,4 +134,5 @@ function printResult(err, result) {
 
 function printError(err) {
 	console.log(err.message.bold.red);
+	process.exit(1);
 }
