@@ -78,7 +78,7 @@ function downloadFont(searchedTerm, variants, path) {
 		if (filteredList.data.length === 1) {
 			filteredList.getFirst().saveAt(variants, path, printResult);
 		} else {
-			console.log('Impossible to download the font: no matches for "%s". \n'.bold.red, searchedTerm);
+			console.log('Download failed: unable to find font family "%s". \n'.bold.red, searchedTerm);
 			searchFont(searchedTerm);
 		}
 	})
@@ -89,7 +89,7 @@ function installFont(searchedTerm, variants) {
 		if (filteredList.data.length === 1) {
 			filteredList.getFirst().install(variants, printResult);
 		} else {
-			console.log('Impossible to install the font: no matches for "%s". \n'.bold.red, searchedTerm);
+			console.log('Installation failed: unable to find font family "%s". \n'.bold.red, searchedTerm);
 			searchFont(searchedTerm);
 		}
 	})
