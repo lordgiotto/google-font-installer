@@ -75,6 +75,10 @@ function searchFont(searchedTerm) {
 
 function downloadFont(searchedTerm, variants, path) {
 	fontList.getFontByName(searchedTerm, function(err, filteredList){
+		if (err){
+			printError(err);
+			return;
+		}
 		if (filteredList.data.length === 1) {
 			filteredList.getFirst().saveAt(variants, path, printResult);
 		} else {
@@ -86,6 +90,10 @@ function downloadFont(searchedTerm, variants, path) {
 
 function installFont(searchedTerm, variants) {
 	fontList.getFontByName(searchedTerm, function(err, filteredList){
+		if (err){
+			printError(err);
+			return;
+		}
 		if (filteredList.data.length === 1) {
 			filteredList.getFirst().install(variants, printResult);
 		} else {
