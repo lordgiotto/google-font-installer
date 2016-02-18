@@ -40,7 +40,7 @@ In Windows, due to the fact that font installation require some register modific
 First of all you have to install google-font-installer in your system
 
 ```
-$ sudo npm install -g google-font-installer
+$ npm install -g google-font-installer
 ```
 If you are on a Windows Machine, you have to omit `sudo` before `npm`
 
