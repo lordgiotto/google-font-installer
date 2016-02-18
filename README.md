@@ -18,7 +18,7 @@ You can use it in two ways:
 	- [Search a font](#search-a-font)
 	- [Download a font](#download-a-font)
 	- [Install a font](#install-a-font)
-	- [Exemples](#cli-exemples)
+	- [Examples](#cli-examples)
 - [APIs](#apis)
 	- [GoogleFontList](#googlefontlist)
 		- [Events](#google-font-list-events)
@@ -27,7 +27,7 @@ You can use it in two ways:
 	- [GoogleFont](#googlefont)
 		- [Public Properties](#google-font-properties)
 		- [Public Methods](#google-font-methods)
-	- [Exemples](#api-exemples)
+	- [Examples](#api-examples)
 
 
 <br>
@@ -63,7 +63,7 @@ If **family_name** will match more than one family, nothing will be downloaded: 
 
 Download command accepts two options:
 - `-d` or `--dest` let you specify the folder where to download the fonts. If this option is omitted the fonts will be download in the folder in which the command was called (or in the home directory if this folder is not writable by the user)
-- `-v` or `--variants` let you specify which variants of the font will be downloaded. You have to write each variant separated by the other with a comma. For exemple `$ gfi download Source Sans Pro -v 300,400`. If omitted, all variants will be downloaded.
+- `-v` or `--variants` let you specify which variants of the font will be downloaded. You have to write each variant separated by the other with a comma. For example `$ gfi download Source Sans Pro -v 300,400`. If omitted, all variants will be downloaded.
 
 ### Install a font
 ```
@@ -73,10 +73,10 @@ $ gfi install [family_name] [-v|--variants comma_separeted_variants]
 If **family_name** will match more than one family, nothing will be installed: a list of alternatives will help you better specify the font family name.
 
 Install command accepts only one option:
-- `-v` or `--variants` let you specify which variants of the font will be installed. You have to write each variant separated by the other with a comma. For exemple `$ gfi install Source Sans Pro -v 300,400`. If omitted, all variants will be downloaded.
+- `-v` or `--variants` let you specify which variants of the font will be installed. You have to write each variant separated by the other with a comma. For example `$ gfi install Source Sans Pro -v 300,400`. If omitted, all variants will be downloaded.
 
-<a id="cli-exemples"></a>
-### Exemples
+<a id="cli-examples"></a>
+### Examples
 Search the _source_ keyword:
 ```
 $ gfi search source
@@ -299,8 +299,8 @@ Install specified variants of the font. The destination folder depends on the pl
 - OSX: _~/Library/Fonts/_
 - Windows: The file is not copied into c:\Windows\Fonts, but is used a WScript that install the font invoking the font install windows function.
 
-<a id="api-exemples"></a>
-### Exemples
+<a id="api-examples"></a>
+### Examples
 ```js
 var GoogleFontlist = require('google-font-installer');
 
