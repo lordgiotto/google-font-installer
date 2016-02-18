@@ -42,7 +42,6 @@ First of all you have to install google-font-installer in your system
 ```
 $ npm install -g google-font-installer
 ```
-If you are on a Windows Machine, you have to omit `sudo` before `npm`
 
 Now, from your terminal emulator, you can use the command `gfi`
 
