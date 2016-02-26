@@ -9,7 +9,7 @@ You can use it in two ways:
 - require the module in your project and use the APIs
 
 <br>
-![how gfi works](https://dl.dropboxusercontent.com/u/821181/gfi.gif)
+![how gfi works](https://raw.githubusercontent.com/lordgiotto/google-font-installer/master/gfi.gif)
 
 <br>
 ### Table of content
