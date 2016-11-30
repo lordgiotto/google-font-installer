@@ -81,7 +81,7 @@ Search the _source_ keyword:
 ```
 $ gfi search source
 
-Search reuslts for: "source"
+Search results for: "source"
 
  * Source Code Pro
     Category: monospace

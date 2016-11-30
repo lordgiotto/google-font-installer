@@ -110,7 +110,7 @@ function printFontList(err, list, message){
 	} else if (list.data.length === 0) {
 		console.log('No results found for: %s\n'.red, list._filterTerm);
 	} else {
-		message = message || 'Search reuslts for:'
+		message = message || 'Search results for:'
 		if (list._filterTerm)
 			console.log('%s "%s"\n'.green, message, list._filterTerm.bold.blue);
 		list.data.forEach(function(el){
