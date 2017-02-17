@@ -7,6 +7,7 @@ var colors = require('colors');
 var GoogleFontList = require('./lib/google-font-list');
 var fontList = new GoogleFontList('AIzaSyB1I5eF2kRqqs50DS8qBJtFkCTMMoQLusg');
 var pjson = require('./package.json');
+var ncp = require("copy-paste");
 
 program
 	.command('search [family...]')
@@ -43,6 +44,19 @@ program
 		fontList.on('success', function(){
 			installFont(searchedTerm, variants);
 		})
+	});
+
+program
+	.command('copy <family...>')
+	.option('-v, --variants <variants...>', 'Specify variants/weights to copy clipboard, seperated with comma (and no spaces)')
+	.description('Copy stylesheet link')
+	.action(function(family, options){
+		var searchedTerm = family.join(" ");
+		var variants = options.variants ? options.variants.split(',') : false;
+		fontList.on('success', function(){
+			copyFont(searchedTerm, variants);
+		})
+
 	});
 
 program
@@ -98,6 +112,28 @@ function installFont(searchedTerm, variants) {
 			filteredList.getFirst().install(variants, printResult);
 		} else {
 			console.log('Installation failed: unable to find font family "%s". \n'.bold.red, searchedTerm);
+			searchFont(searchedTerm);
+		}
+	})
+}
+
+function copyFont(searchedTerm, variants) {
+	fontList.getFontByName(searchedTerm, function(err, filteredList){
+		if (err){
+			printError(err);
+			return;
+		}
+		if (filteredList.data.length === 1) {
+
+			var list 	= filteredList.getFirst(),
+				cssUrl 	= variants ? list.cssUrl + ':' + variants.join(',') : list.cssUrl;
+				
+				ncp.copy(cssUrl, function () {
+			        console.log("\nselected font url has been copied to your clipboard.");
+			    });
+
+		} else {
+			console.log('Download failed: unable to find font family "%s". \n'.bold.blue, searchedTerm);
 			searchFont(searchedTerm);
 		}
 	})
