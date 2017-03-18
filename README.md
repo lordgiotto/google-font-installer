@@ -8,16 +8,17 @@ You can use it in two ways:
 - install the module system wide and use the Command Line Interface (CLI)
 - require the module in your project and use the APIs
 
-<br>
+
 ![how gfi works](https://raw.githubusercontent.com/lordgiotto/google-font-installer/master/gfi.gif)
 
-<br>
+
 ### Table of content
 
 - [CLI](#cli)
 	- [Search a font](#search-a-font)
 	- [Download a font](#download-a-font)
 	- [Install a font](#install-a-font)
+	- [Copy font CSS URL](#copy-font-css-url)
 	- [Examples](#cli-examples)
 - [APIs](#apis)
 	- [GoogleFontList](#googlefontlist)
@@ -75,9 +76,17 @@ If **family_name** will match more than one family, nothing will be installed: a
 Install command accepts only one option:
 - `-v` or `--variants` let you specify which variants of the font will be installed. You have to write each variant separated by the other with a comma. For example `$ gfi install Source Sans Pro -v 300,400`. If omitted, all variants will be downloaded.
 
+### Copy font CSS url
+```
+$ gfi copy [family_name] [-v|--variants comma_separeted_variants]
+```
+
+If **family_name** will match more than one family, nothing will be copied: a list of alternatives will help you better specify the font family name.
+
 <a id="cli-examples"></a>
 ### Examples
-Search the _source_ keyword:
+
+**Search the _source_ keyword**
 ```
 $ gfi search source
 
@@ -96,20 +105,32 @@ Search results for: "source"
     Variants: regular, 600, 700
     CSS Url: https://fonts.googleapis.com/css?family=Source+Serif+Pro
 ```
-Download Source Sans Pro 600 and 700italic:
+
+**Download Source Sans Pro 600 and 700italic**
 ```
 $ gfi download source sans pro -v 600,700italic
 
 Source Sans Pro variant 600 downloaded in /home/user/someFolder/SourceSansPro-600.ttf
 Source Sans Pro variant 700italic downloaded in /home/user/someFolder/SourceSansPro-700italic.ttf
 ```
-Install Lato 100
+
+**Install Lato 100**
 ```
 $ gfi install lato -v 100
 
 Lato variant 100 downloaded in /home/user/.fonts/Lato-100.ttf
 
 ```
+
+**Copy font url for Work Sans variants 200, normal and 600**
+```
+$ gfi copy work sans -v 200,400,600
+
+"work sans" font url has been copied to your clipboard.
+
+```
+(*https://fonts.googleapis.com/css?family=Work+Sans:200,400,600* will be available in your clipboard)
+
 # APIs
 
 First of all you have to install the module in you NodeJS project:
