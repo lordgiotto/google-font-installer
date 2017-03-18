@@ -148,7 +148,7 @@ function printFontList(err, list, message){
 	} else {
 		message = message || 'Search results for:'
 		if (list._filterTerm)
-			console.log('%s "%s"\n'.green, message, list._filterTerm.bold.blue);
+			console.log('%s "%s"\n'.green, message, (list._filterTerm || '').bold.blue);
 		list.data.forEach(function(el){
 			console.log(" * %s".bold.blue,  el.family);
 			console.log("    Category: %s\n    Variants: %s\n    CSS Url: %s\n", el.getCategory(), el.getVariants().join(", "), el.getCssUrl());
@@ -163,12 +163,12 @@ function printResult(err, result) {
 	}
 	console.log('');
 	result.forEach(function(el){
-		console.log('%s variant %s downloaded in %s'.green, el.family.bold, el.variant.bold, el.path.underline);
+		console.log('%s variant %s downloaded in %s'.green, (el.family || '??').bold, (el.variant || '??').bold, (el.path || '??').underline);
 	})
 	console.log('');
 }
 
 function printError(err) {
-	console.log(err.message.bold.red);
+	console.log((err.message || err.stack || 'Error, please try again!').bold.red);
 	process.exit(1);
 }
