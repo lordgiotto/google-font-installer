@@ -125,15 +125,15 @@ function copyFont(searchedTerm, variants) {
 		}
 		if (filteredList.data.length === 1) {
 
-			var list 	= filteredList.getFirst(),
-				cssUrl 	= variants ? list.cssUrl + ':' + variants.join(',') : list.cssUrl;
-				
+			var list 	= filteredList.getFirst();
+			var cssUrl 	= variants ? list.cssUrl + ':' + variants.join(',') : list.cssUrl;
+
 				ncp.copy(cssUrl, function () {
-			        console.log("\nselected font url has been copied to your clipboard.");
+			        console.log('"%s" font url has been copied to your clipboard.'.green, searchedTerm);
 			    });
 
 		} else {
-			console.log('Download failed: unable to find font family "%s". \n'.bold.blue, searchedTerm);
+			console.log('Copy failed: unable to find font family "%s". \n'.bold.red, searchedTerm);
 			searchFont(searchedTerm);
 		}
 	})
