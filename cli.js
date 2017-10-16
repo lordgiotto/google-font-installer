@@ -169,6 +169,7 @@ function printResult(err, result) {
 }
 
 function printError(err) {
-	console.log((err.message || err.stack || 'Error, please try again!').bold.red);
+    console.error('Error, please try again!'.bold.red);
+	console.error(err.toString().bold.red);
 	process.exit(1);
 }
