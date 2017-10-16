@@ -1,6 +1,6 @@
 {
   "name": "google-font-installer",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Download and install Google Web Fonts on your local machine",
   "author": "Lorenzo Zottar <lordgiotto@gmail.com>",
   "main": "./lib/google-font-list.js",
