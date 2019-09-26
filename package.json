@@ -30,5 +30,8 @@
     "file-type": "^3.6.0",
     "mv": "^2.1.1",
     "pascal-case": "^1.1.2"
+  },
+  "optionalDependencies": {
+    "node-powershell": "^4.0.0"
   }
 }
