@@ -7,7 +7,7 @@ var colors = require('colors');
 var GoogleFontList = require('./lib/google-font-list');
 var fontList = new GoogleFontList('AIzaSyB1I5eF2kRqqs50DS8qBJtFkCTMMoQLusg');
 var pjson = require('./package.json');
-var ncp = require("copy-paste");
+var ncp = require("copy-paste-win32fix");
 
 program
 	.command('search [family...]')

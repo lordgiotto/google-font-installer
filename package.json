@@ -26,9 +26,12 @@
     "async": "^1.5.2",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
-    "copy-paste": "^1.3.0",
+    "copy-paste-win32fix": "^1.4.0",
     "file-type": "^3.6.0",
     "mv": "^2.1.1",
     "pascal-case": "^1.1.2"
+  },
+  "optionalDependencies": {
+    "node-powershell": "^4.0.0"
   }
 }
