@@ -76,7 +76,7 @@ if (!found)
 
 // HELPERS FUNCTIONS
 
-console.log('\nDonwloading Google Font List....\n'.blue.bold);
+console.log('\nDownloading Google Font List....\n'.blue.bold);
 
 fontList.on('error', function(err){
 	printError(err);
