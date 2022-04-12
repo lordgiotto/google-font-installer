@@ -23,7 +23,7 @@
     "cli"
   ],
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^3.2.2",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "copy-paste-win32fix": "^1.4.0",
